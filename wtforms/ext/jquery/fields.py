@@ -1,4 +1,4 @@
-from wtforms.fields import Field
+from wtforms.fields import Field, FieldList as WtfFieldList
 
 class FieldWithScript(Field):
     """
@@ -12,3 +12,9 @@ class FieldWithScript(Field):
         self.script = script
         super(FieldWithScript, self).__init__(label, validators, filters, description, id, default, widget, _form, _name
                                               , _prefix, _translations)
+
+class FieldList(FieldWithScript, WtfFieldList):
+    """
+    wtforms.field.FieldList + delete item link 
+    """
+    pass
