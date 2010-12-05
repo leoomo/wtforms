@@ -32,4 +32,11 @@ class JqField(Field):
 class JqFieldTable(JqField, FieldList):
     #TODO: some code that deletes some items
     _script = ""
-    widget=widgets.JqTableWidget()
+
+    def __init__(self, unbound_field, label=u'', validators=None, min_entries=0, max_entries=None, default=tuple(),
+                 widget=widgets.JqTableWidget(), **kwargs):
+        self.widget = widget
+        super(JqFieldTable, self).__init__(unbound_field, label, validators, min_entries, max_entries, default,
+                                           **kwargs)
+
+

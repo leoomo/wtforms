@@ -39,7 +39,15 @@ class JqTableWidgetTest(TestCase):
         self.assertEqual(JqTableWidget(delete_row_link=False)(field), u'<table id="hai">' +
                                                                        '<tr><th>lfoo</th><td>foo</td></tr>' +
                                                                        '<tr><th>lbar</th><td>bar</td></tr>' +
-                                                                       '</table>')
+                                                                   '</table>')
+
+        # testing custom delete link class
+        self.assertEqual(JqTableWidget(delete_row_link_class='bzzz')(field), u'<table id="hai">' +
+                                                 '<tr><th>lfoo</th><td>foo</td><td><a class="bzzz" href="#">x</a></td></tr>' +
+                                                 '<tr><th>lbar</th><td>bar</td><td><a class="bzzz" href="#">x</a></td></tr>' +
+                                                 '</table>')
+
+
 class IMForm(Form):
     protocol = TextField()
     username = TextField()
@@ -49,9 +57,6 @@ class ContactForm(Form):
     last_name   = TextField()
     im_accounts = JqFieldTable(FormField(IMForm))
 
-#TODO: test JqField
-
-# TODO: test this field as well
 class JqFieldTableTest(TestCase):
     def setUp(self):
         self.cf = ContactForm(DummyPostData({
