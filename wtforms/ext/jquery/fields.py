@@ -1,17 +1,12 @@
-from wtforms.fields import Field, FieldList as WtfFieldList
+from wtforms.fields import Field, FieldList
+from wtforms.ext.jquery import widgets
+from wtforms.form import Form
 
 class JqField(Field):
     """
     An abstract class that represents a field that comes with some javascript.
-
-    :param script - the script to store in self.script
     """
-
-    def __init__(self, label=u'', validators=None, filters=tuple(), description=u'', id=None, default=None,
-                 widget=None, script=None, _form=None, _name=None, _prefix='', _translations=None):
-        self._script = script
-        super(JqField, self).__init__(label, validators, filters, description, id, default, widget, _form,
-                                              _name, _prefix, _translations)
+    _script = None
 
     def render_script(self):
         if self._script is not None:
@@ -31,3 +26,5 @@ class JqField(Field):
         else:
             return ''
 
+class JqFormField(JqField, FieldList):
+    widget=widgets.TableWidget
