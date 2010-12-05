@@ -1,17 +1,5 @@
 from wtforms.widgets import TableWidget, html_params, HTMLString
 
-"""
-function add_photo() {
-      $('<div class="photo_box"><input name="photo" type="file" /></div>').append(
-        $('<a href="#">удалить</a>').css({ marginLeft: '5px', fontSize: '11px' }).click( function() {
-          $(this).parent().remove();
-          return false;
-        } )
-      ).appendTo('#add_photo');
-      return false;
-    }
-"""
-
 class JqTableWidget(TableWidget):
     def __init__(self, with_table_tag=True, delete_row_link=True):
         super(JqTableWidget, self).__init__(with_table_tag)
