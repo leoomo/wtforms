@@ -63,6 +63,18 @@ class JqFieldTableTest(TestCase):
                                 'im_accounts-2-username': 'john@example.com'
                             }))
 
-    def test(self):
-        print self.cf.im_accounts
+    def test_remove_links(self):
+        self.assertEquals(self.cf.im_accounts().count(u'<td><a href="#">x</a></td></tr>'), 2)
+
+    def test_script_before_field(self):
+        self.assertTrue(self.cf.im_accounts().startswith(u"<script type='language/javascript'>"))
+
+    def test_script_single(self):
+        """
+        Ensures that script appears only once.
+        """
+        # first time we callit explicitly and we se it
+        self.assertTrue(self.cf.im_accounts.script.startswith(u"<script type='language/javascript'>"))
+        # next time we can call it, but we will not se it
+        self.assertEquals(self.cf.im_accounts.script, u'')
 
