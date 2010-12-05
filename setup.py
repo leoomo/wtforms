@@ -30,5 +30,6 @@ setup(
         'wtforms.ext.django',
         'wtforms.ext.django.templatetags',
         'wtforms.ext.sqlalchemy',
+        'wtforms.ext.jquery',
     ]
 )
