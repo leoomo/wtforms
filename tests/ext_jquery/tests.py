@@ -1,5 +1,5 @@
 from wtforms.ext.jquery.widgets import JqTableWidget
-from wtforms.ext.jquery.fields import JqFieldList
+from wtforms.ext.jquery.fields import JqFieldTable
 from unittest import TestCase
 from wtforms.form import Form
 from wtforms.fields import TextField, FormField
@@ -47,12 +47,12 @@ class IMForm(Form):
 class ContactForm(Form):
     first_name  = TextField()
     last_name   = TextField()
-    im_accounts = JqFieldList(FormField(IMForm))
+    im_accounts = JqFieldTable(FormField(IMForm))
 
 #TODO: test JqField
 
 # TODO: test this field as well
-class JqFieldListTest(TestCase):
+class JqFieldTableTest(TestCase):
     def setUp(self):
         self.cf = ContactForm(DummyPostData({
                                 'first_name': 'John',
@@ -64,5 +64,5 @@ class JqFieldListTest(TestCase):
                             }))
 
     def test(self):
-        print self.cf.im_accounts.script
+        print self.cf.im_accounts
 

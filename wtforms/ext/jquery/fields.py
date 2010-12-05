@@ -29,7 +29,7 @@ class JqField(Field):
     def __call__(self, **kwargs):
         return "%s%s" % (self.script, super(JqField, self).__call__(**kwargs),)
 
-class JqFieldList(JqField, FieldList):
+class JqFieldTable(JqField, FieldList):
     #TODO: some code that deletes some items
     _script = ""
     widget=widgets.JqTableWidget()
