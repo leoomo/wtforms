@@ -3,15 +3,16 @@ from wtforms.widgets import TableWidget, html_params, HTMLString
 __all__ = ('JqTableWidget',)
 
 class JqTableWidget(TableWidget):
-    def __init__(self, with_table_tag=True, delete_row_link=True, delete_row_link_class='delete_row'):
+    def __init__(self, with_table_tag=True, delete_row_link=True, delete_item_link_class='delete_row'):
         super(JqTableWidget, self).__init__(with_table_tag)
 
         if delete_row_link:
+            self.delete_item_link_class = delete_item_link_class
             self.row_pattern = u'<tr><th>%(subfield_label)s</th>' +\
                                '<td>%(hidden)s%(subfield)s</td><td>'
 
-            if delete_row_link_class is not None:
-                self.row_pattern += '<a class="%s" href="#">x</a></td></tr>' % delete_row_link_class
+            if delete_item_link_class is not None:
+                self.row_pattern += '<a class="%s" href="#">x</a></td></tr>' % delete_item_link_class
             else:
                 self.row_pattern += '<a href="#">x</a></td></tr>'
                 
