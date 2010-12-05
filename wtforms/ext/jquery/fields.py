@@ -25,6 +25,9 @@ class JqField(Field):
         A method for explicit calling script (for example into head). If not called,
         the script is to be rendered just before the field.
         """
-        self.script_called = True
-        return self.render_script()
+        if not self.script_called:
+            self.script_called = True
+            return self.render_script()
+        else:
+            return ''
 
