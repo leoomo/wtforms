@@ -1,5 +1,7 @@
 from wtforms.widgets import TableWidget, html_params, HTMLString
 
+__all__ = ('JqTableWidget',)
+
 class JqTableWidget(TableWidget):
     def __init__(self, with_table_tag=True, delete_row_link=True):
         super(JqTableWidget, self).__init__(with_table_tag)
