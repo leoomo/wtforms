@@ -32,8 +32,8 @@ class JqTableWidgetTest(TestCase):
     def test(self):
         field = DummyField([DummyField(x, label='l' + x) for x in ['foo', 'bar']], id='hai')
         self.assertEqual(JqTableWidget()(field), u'<table id="hai">' +
-                                                 '<tr><th>lfoo</th><td>foo</td><td><a href="#">x</a></td></tr>' +
-                                                 '<tr><th>lbar</th><td>bar</td><td><a href="#">x</a></td></tr>' +
+                                                 '<tr><th>lfoo</th><td>foo</td><td><a class="delete_row" href="#">x</a></td></tr>' +
+                                                 '<tr><th>lbar</th><td>bar</td><td><a class="delete_row" href="#">x</a></td></tr>' +
                                                  '</table>')
 
         self.assertEqual(JqTableWidget(delete_row_link=False)(field), u'<table id="hai">' +
@@ -64,7 +64,7 @@ class JqFieldTableTest(TestCase):
                             }))
 
     def test_remove_links(self):
-        self.assertEquals(self.cf.im_accounts().count(u'<td><a href="#">x</a></td></tr>'), 2)
+        self.assertEquals(self.cf.im_accounts().count(u'<td><a class="delete_row" href="#">x</a></td></tr>'), 2)
 
     def test_script_before_field(self):
         self.assertTrue(self.cf.im_accounts().startswith(u"<script type='language/javascript'>"))
