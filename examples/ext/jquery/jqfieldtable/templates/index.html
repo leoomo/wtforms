@@ -1,0 +1,16 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>JqFieldTable example</title>
+    <script type="text/javascript" src="http://yandex.st/jquery/1.4.4/jquery.min.js"></script>
+    {{form.im_accounts.script|safe}}
+</head>
+<body>
+<form action="#">
+    {{form.first_name.label}}: {{form.first_name}}<br/>
+    {{form.last_name.label}}: {{form.last_name}}<br/>
+    {{form.im_accounts}}
+</form>
+</body>
+</html>
