@@ -14,7 +14,7 @@ class JqField(Field):
     def render_script(self, script=None):
         script_to_render = script or self.get_script()
         if script_to_render is not None:
-            return "<script type='language/javascript'>%s</script>" % script_to_render
+            return "<script type='text/javascript'>%s</script>" % script_to_render
         else:
             return ""
 

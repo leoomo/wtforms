@@ -72,14 +72,14 @@ class JqFieldTableTest(TestCase):
         self.assertEquals(self.cf.im_accounts().count(u'<td><a class="delete_row" href="#">x</a></td></tr>'), 2)
 
     def test_script_before_field(self):
-        self.assertTrue(self.cf.im_accounts().startswith(u"<script type='language/javascript'>"))
+        self.assertTrue(self.cf.im_accounts().startswith(u"<script type='text/javascript'>"))
 
     def test_script_single(self):
         """
         Ensures that script appears only once.
         """
         # first time we callit explicitly and we se it
-        self.assertTrue(self.cf.im_accounts.script.startswith(u"<script type='language/javascript'>"))
+        self.assertTrue(self.cf.im_accounts.script.startswith(u"<script type='text/javascript'>"))
         # next time we can call it, but we will not se it
         self.assertEquals(self.cf.im_accounts.script, u'')
 
