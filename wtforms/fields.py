@@ -380,10 +380,14 @@ class SelectFieldBase(Field):
 class SelectField(SelectFieldBase):
     widget = widgets.Select()
 
-    def __init__(self, label=u'', validators=None, coerce=unicode, choices=None, **kwargs):
+    def __init__(self, label=u'', validators=None, coerce=unicode, choices=None, pre_validation=True, **kwargs):
+        """
+        :param pre_validation: If true, pre-validation will take place, else it will not.
+        """
         super(SelectField, self).__init__(label, validators, **kwargs)
         self.coerce = coerce
         self.choices = choices
+        self.pre_validation = pre_validation
 
     def iter_choices(self):
         for value, label in self.choices:
@@ -403,11 +407,12 @@ class SelectField(SelectFieldBase):
                 raise ValueError(self.gettext(u'Invalid Choice: could not coerce'))
 
     def pre_validate(self, form):
-        for v, _ in self.choices:
-            if self.data == v:
-                break
-        else:
-            raise ValueError(self.gettext(u'Not a valid choice'))
+        if self.pre_validation:
+            for v, _ in self.choices:
+                if self.data == v:
+                    break
+            else:
+                raise ValueError(self.gettext(u'Not a valid choice'))
 
 
 class SelectMultipleField(SelectField):
@@ -436,7 +441,7 @@ class SelectMultipleField(SelectField):
             raise ValueError(self.gettext(u'Invalid choice(s): one or more data inputs could not be coerced'))
 
     def pre_validate(self, form):
-        if self.data:
+        if self.pre_validation and self.data:
             values = list(c[0] for c in self.choices)
             for d in self.data:
                 if d not in values:
