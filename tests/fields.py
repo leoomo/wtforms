@@ -130,6 +130,16 @@ class SelectFieldTest(TestCase):
         self.assertEqual(form.b.data, None)
         self.assert_(not form.b.validate(form))
 
+    def test_no_prevalidation(self):
+        """
+        If we do not want any prevalidation, the field is to accept choice that is not in 'self.choices'
+        """
+        class NoPrevalidationF(Form):
+            b = SelectField(choices=[('a', 'hello'), ('btest','bye')], pre_validation=False)
+
+        form = NoPrevalidationF(DummyPostData(b=[u'NOT_IN_LIST']))
+        self.assertEqual(form.b.data, u'NOT_IN_LIST')
+
     def test_iterable_options(self):
         form = self.F()
         self.assert_(isinstance(list(form.a)[0], form.a._Option))
