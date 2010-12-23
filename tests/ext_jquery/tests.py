@@ -29,24 +29,35 @@ class DummyField(object):
     iter_choices = lambda x: iter(x.data)
 
 class JqTableWidgetTest(TestCase):
-    def test(self):
-        field = DummyField([DummyField(x, label='l' + x) for x in ['foo', 'bar']], id='hai')
-        self.assertEqual(JqTableWidget()(field), u'<table id="hai">' +
+
+    def setUp(self):
+        self.field = DummyField([DummyField(x, label='l' + x) for x in ['foo', 'bar']], id='hai')
+
+    def test_simple(self):
+        self.assertEqual(JqTableWidget()(self.field), u'<table id="hai">' +
                                                  '<tr><th>lfoo</th><td>foo</td><td><a class="delete_row" href="#">x</a></td></tr>' +
                                                  '<tr><th>lbar</th><td>bar</td><td><a class="delete_row" href="#">x</a></td></tr>' +
                                                  '</table>')
 
-        self.assertEqual(JqTableWidget(delete_row_link=False)(field), u'<table id="hai">' +
-                                                                       '<tr><th>lfoo</th><td>foo</td></tr>' +
-                                                                       '<tr><th>lbar</th><td>bar</td></tr>' +
-                                                                   '</table>')
+    def test_no_delete_row_link(self):
+        self.assertEqual(JqTableWidget(delete_row_link=False)(self.field), u'<table id="hai">' +
+                                                                               '<tr><th>lfoo</th><td>foo</td></tr>' +
+                                                                               '<tr><th>lbar</th><td>bar</td></tr>' +
+                                                                           '</table>')
 
+    def test_custom_link_class(self):
         # testing custom delete link class
-        self.assertEqual(JqTableWidget(delete_item_link_class='bzzz')(field), u'<table id="hai">' +
+        self.assertEqual(JqTableWidget(delete_item_link_class='bzzz')(self.field), u'<table id="hai">' +
                                                  '<tr><th>lfoo</th><td>foo</td><td><a class="bzzz" href="#">x</a></td></tr>' +
                                                  '<tr><th>lbar</th><td>bar</td><td><a class="bzzz" href="#">x</a></td></tr>' +
                                                  '</table>')
 
+    def test_custom_link_text(self):
+        # testing custom link text
+        self.assertEqual(JqTableWidget(delete_row_link_text='DELETE')(self.field), u'<table id="hai">' +
+                                                 '<tr><th>lfoo</th><td>foo</td><td><a class="delete_row" href="#">DELETE</a></td></tr>' +
+                                                 '<tr><th>lbar</th><td>bar</td><td><a class="delete_row" href="#">DELETE</a></td></tr>' +
+                                                 '</table>')
 
 class IMForm(Form):
     protocol = TextField()
