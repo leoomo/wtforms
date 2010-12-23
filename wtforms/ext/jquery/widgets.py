@@ -13,9 +13,7 @@ class JqTableWidget(TableWidget):
 
             if delete_item_link_class is not None:
                 self.row_pattern += '<a class="%s" href="#">x</a></td></tr>' % delete_item_link_class
-            else:
-                self.row_pattern += '<a href="#">x</a></td></tr>'
-                
+
         else:
             self.row_pattern = u'<tr><th>%(subfield_label)s</th><td>%(hidden)s%(subfield)s</td></tr>'
 
